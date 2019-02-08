@@ -1,5 +1,18 @@
 import equation_parser as ep
 
+
+def print_main_funcs(diff_variables, variables, params, model_name):
+	label_upper = "NM_"+model_name.upper()+"_"
+	label_lower = "nm_"+model_name.lower()+"_"
+
+	print("void "+label_lower+"f (double * vars, double * ret, double * params, double syn) {")
+
+	for diff_var in diff_variables:
+		print("\tret["+label_upper+diff_var.upper()+"] = "+label_lower+diff_var+"(vars, params);")
+
+	print("}")
+
+
 lefts = []
 rights = []
 
@@ -59,3 +72,4 @@ if command == 2:
 	for i in range(len(lefts)):
 		params = ep.parse(diff_variables, variables, params, "Wang_1993", lefts[i]+" = "+rights[i])
 
+	print_main_funcs(diff_variables, variables, params, "Wang_1993")
