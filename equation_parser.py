@@ -9,6 +9,8 @@ internal_variables = []
 label_upper = ""
 label_lower = ""
 
+output_file = None
+
 tokens = (
     'NAME','NUMBER',
     'PLUS','MINUS','TIMES','DIVIDE','EQUALS',
@@ -63,6 +65,7 @@ lexer = lex.lex()
 precedence = (
     ('left','PLUS','MINUS'),
     ('left','TIMES','DIVIDE'),
+    ('left','POWER'),
     ('right','UMINUS'),
     )
 
@@ -82,22 +85,22 @@ def p_equation(t):
 def p_differential(t):
     'differential : DIFFERENTIAL NAME EQUALS expression'
 
-    print("double "+label_lower+t[2]+" (double * vars, double * params) {")
+    output_file.write("double "+label_lower+t[2]+" (double * vars, double * params) {\n")
 
     for var in internal_variables:
-        print("\tdouble "+var+" = "+label_lower+var+"(vars, params);")
+        output_file.write("\tdouble "+var+" = "+label_lower+var+"(vars, params);\n")
 
-    print("\treturn %s;\n}"%(t[4]))
+    output_file.write("\treturn %s;\n}\n\n"%(t[4]))
 
 def p_simple(t):
     'simple : NAME EQUALS expression'
 
-    print("double "+label_lower+t[1]+" (double * vars, double * params) {")
+    output_file.write("double "+label_lower+t[1]+" (double * vars, double * params) {\n")
 
     for var in internal_variables:
-        print("\tdouble "+var+" = "+label_lower+var+"(vars, params);")
+        output_file.write("\tdouble "+var+" = "+label_lower+var+"(vars, params);\n")
 
-    print("\treturn %s;\n}"%(t[3]))
+    output_file.write("\treturn %s;\n}\n\n"%(t[3]))
 
 def p_expression_binop(t):
     '''expression : expression PLUS expression
@@ -178,13 +181,16 @@ def p_error(t):
     print("Syntax error at '%s'" % t.value)
 
 
-def parse(diff_vars, aux_vars, params, model_name, s):
+def parse(diff_vars, aux_vars, params, model_name, s, fileptr):
     global diff_variables
     global aux_variables
     global parameters
     global label_upper
     global label_lower
     global internal_variables
+    global output_file
+
+    output_file = fileptr
 
     diff_variables = diff_vars
     aux_variables = aux_vars

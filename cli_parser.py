@@ -8,6 +8,7 @@ def print_main_funcs(diff_variables, variables, params, model_name):
 	print("void "+label_lower+"f (double * vars, double * ret, double * params, double syn) {")
 
 	for diff_var in diff_variables:
+		#Falta añadir el input sinaptico
 		print("\tret["+label_upper+diff_var.upper()+"] = "+label_lower+diff_var+"(vars, params);")
 
 	print("}")

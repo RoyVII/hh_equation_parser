@@ -1,0 +1,726 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARCCOS
+    ARCSIN
+    ARCTAN
+    COS
+    HARCCOS
+    HARCSIN
+    HARCTAN
+    HCOS
+    HSIN
+    HTAN
+    SIN
+    TAN
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> init equation
+Rule 2     init -> <empty>
+Rule 3     equation -> differential
+Rule 4     equation -> simple
+Rule 5     differential -> DIFFERENTIAL NAME EQUALS expression
+Rule 6     simple -> NAME EQUALS expression
+Rule 7     expression -> expression PLUS expression
+Rule 8     expression -> expression MINUS expression
+Rule 9     expression -> expression TIMES expression
+Rule 10    expression -> expression DIVIDE expression
+Rule 11    expression -> MINUS expression
+Rule 12    expression -> LPAREN expression RPAREN
+Rule 13    expression -> NUMBER
+Rule 14    expression -> expression POWER NUMBER
+Rule 15    expression -> expression POWER NAME
+Rule 16    expression -> expression POWER LPAREN expression RPAREN
+Rule 17    expression -> EXP LPAREN expression RPAREN
+Rule 18    expression -> NAME
+
+Terminals, with rules where they appear
+
+ARCCOS               : 
+ARCSIN               : 
+ARCTAN               : 
+COS                  : 
+DIFFERENTIAL         : 5
+DIVIDE               : 10
+EQUALS               : 5 6
+EXP                  : 17
+HARCCOS              : 
+HARCSIN              : 
+HARCTAN              : 
+HCOS                 : 
+HSIN                 : 
+HTAN                 : 
+LPAREN               : 12 16 17
+MINUS                : 8 11
+NAME                 : 5 6 15 18
+NUMBER               : 13 14
+PLUS                 : 7
+POWER                : 14 15 16
+RPAREN               : 12 16 17
+SIN                  : 
+TAN                  : 
+TIMES                : 9
+error                : 
+
+Nonterminals, with rules where they appear
+
+differential         : 3
+equation             : 1
+expression           : 5 6 7 7 8 8 9 9 10 10 11 12 14 15 16 16 17
+init                 : 1
+simple               : 4
+statement            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . init equation
+    (2) init -> .
+
+    DIFFERENTIAL    reduce using rule 2 (init -> .)
+    NAME            reduce using rule 2 (init -> .)
+
+    statement                      shift and go to state 1
+    init                           shift and go to state 2
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> init . equation
+    (3) equation -> . differential
+    (4) equation -> . simple
+    (5) differential -> . DIFFERENTIAL NAME EQUALS expression
+    (6) simple -> . NAME EQUALS expression
+
+    DIFFERENTIAL    shift and go to state 6
+    NAME            shift and go to state 7
+
+    equation                       shift and go to state 3
+    differential                   shift and go to state 4
+    simple                         shift and go to state 5
+
+state 3
+
+    (1) statement -> init equation .
+
+    $end            reduce using rule 1 (statement -> init equation .)
+
+
+state 4
+
+    (3) equation -> differential .
+
+    $end            reduce using rule 3 (equation -> differential .)
+
+
+state 5
+
+    (4) equation -> simple .
+
+    $end            reduce using rule 4 (equation -> simple .)
+
+
+state 6
+
+    (5) differential -> DIFFERENTIAL . NAME EQUALS expression
+
+    NAME            shift and go to state 8
+
+
+state 7
+
+    (6) simple -> NAME . EQUALS expression
+
+    EQUALS          shift and go to state 9
+
+
+state 8
+
+    (5) differential -> DIFFERENTIAL NAME . EQUALS expression
+
+    EQUALS          shift and go to state 10
+
+
+state 9
+
+    (6) simple -> NAME EQUALS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 12
+
+state 10
+
+    (5) differential -> DIFFERENTIAL NAME EQUALS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 17
+
+state 11
+
+    (18) expression -> NAME .
+
+    PLUS            reduce using rule 18 (expression -> NAME .)
+    MINUS           reduce using rule 18 (expression -> NAME .)
+    TIMES           reduce using rule 18 (expression -> NAME .)
+    DIVIDE          reduce using rule 18 (expression -> NAME .)
+    POWER           reduce using rule 18 (expression -> NAME .)
+    $end            reduce using rule 18 (expression -> NAME .)
+    RPAREN          reduce using rule 18 (expression -> NAME .)
+
+
+state 12
+
+    (6) simple -> NAME EQUALS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    $end            reduce using rule 6 (simple -> NAME EQUALS expression .)
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    POWER           shift and go to state 22
+
+
+state 13
+
+    (11) expression -> MINUS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 23
+
+state 14
+
+    (12) expression -> LPAREN . expression RPAREN
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 24
+
+state 15
+
+    (13) expression -> NUMBER .
+
+    PLUS            reduce using rule 13 (expression -> NUMBER .)
+    MINUS           reduce using rule 13 (expression -> NUMBER .)
+    TIMES           reduce using rule 13 (expression -> NUMBER .)
+    DIVIDE          reduce using rule 13 (expression -> NUMBER .)
+    POWER           reduce using rule 13 (expression -> NUMBER .)
+    $end            reduce using rule 13 (expression -> NUMBER .)
+    RPAREN          reduce using rule 13 (expression -> NUMBER .)
+
+
+state 16
+
+    (17) expression -> EXP . LPAREN expression RPAREN
+
+    LPAREN          shift and go to state 25
+
+
+state 17
+
+    (5) differential -> DIFFERENTIAL NAME EQUALS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    $end            reduce using rule 5 (differential -> DIFFERENTIAL NAME EQUALS expression .)
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    POWER           shift and go to state 22
+
+
+state 18
+
+    (7) expression -> expression PLUS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 26
+
+state 19
+
+    (8) expression -> expression MINUS . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 27
+
+state 20
+
+    (9) expression -> expression TIMES . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 28
+
+state 21
+
+    (10) expression -> expression DIVIDE . expression
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 29
+
+state 22
+
+    (14) expression -> expression POWER . NUMBER
+    (15) expression -> expression POWER . NAME
+    (16) expression -> expression POWER . LPAREN expression RPAREN
+
+    NUMBER          shift and go to state 30
+    NAME            shift and go to state 31
+    LPAREN          shift and go to state 32
+
+
+state 23
+
+    (11) expression -> MINUS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    PLUS            reduce using rule 11 (expression -> MINUS expression .)
+    MINUS           reduce using rule 11 (expression -> MINUS expression .)
+    TIMES           reduce using rule 11 (expression -> MINUS expression .)
+    DIVIDE          reduce using rule 11 (expression -> MINUS expression .)
+    POWER           reduce using rule 11 (expression -> MINUS expression .)
+    $end            reduce using rule 11 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 11 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 18 ]
+  ! MINUS           [ shift and go to state 19 ]
+  ! TIMES           [ shift and go to state 20 ]
+  ! DIVIDE          [ shift and go to state 21 ]
+  ! POWER           [ shift and go to state 22 ]
+
+
+state 24
+
+    (12) expression -> LPAREN expression . RPAREN
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    RPAREN          shift and go to state 33
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    POWER           shift and go to state 22
+
+
+state 25
+
+    (17) expression -> EXP LPAREN . expression RPAREN
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 34
+
+state 26
+
+    (7) expression -> expression PLUS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    PLUS            reduce using rule 7 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 7 (expression -> expression PLUS expression .)
+    $end            reduce using rule 7 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 7 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    POWER           shift and go to state 22
+
+  ! TIMES           [ reduce using rule 7 (expression -> expression PLUS expression .) ]
+  ! DIVIDE          [ reduce using rule 7 (expression -> expression PLUS expression .) ]
+  ! POWER           [ reduce using rule 7 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 18 ]
+  ! MINUS           [ shift and go to state 19 ]
+
+
+state 27
+
+    (8) expression -> expression MINUS expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    PLUS            reduce using rule 8 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 8 (expression -> expression MINUS expression .)
+    $end            reduce using rule 8 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 8 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    POWER           shift and go to state 22
+
+  ! TIMES           [ reduce using rule 8 (expression -> expression MINUS expression .) ]
+  ! DIVIDE          [ reduce using rule 8 (expression -> expression MINUS expression .) ]
+  ! POWER           [ reduce using rule 8 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 18 ]
+  ! MINUS           [ shift and go to state 19 ]
+
+
+state 28
+
+    (9) expression -> expression TIMES expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    PLUS            reduce using rule 9 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 9 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 9 (expression -> expression TIMES expression .)
+    DIVIDE          reduce using rule 9 (expression -> expression TIMES expression .)
+    $end            reduce using rule 9 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 9 (expression -> expression TIMES expression .)
+    POWER           shift and go to state 22
+
+  ! POWER           [ reduce using rule 9 (expression -> expression TIMES expression .) ]
+  ! PLUS            [ shift and go to state 18 ]
+  ! MINUS           [ shift and go to state 19 ]
+  ! TIMES           [ shift and go to state 20 ]
+  ! DIVIDE          [ shift and go to state 21 ]
+
+
+state 29
+
+    (10) expression -> expression DIVIDE expression .
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    PLUS            reduce using rule 10 (expression -> expression DIVIDE expression .)
+    MINUS           reduce using rule 10 (expression -> expression DIVIDE expression .)
+    TIMES           reduce using rule 10 (expression -> expression DIVIDE expression .)
+    DIVIDE          reduce using rule 10 (expression -> expression DIVIDE expression .)
+    $end            reduce using rule 10 (expression -> expression DIVIDE expression .)
+    RPAREN          reduce using rule 10 (expression -> expression DIVIDE expression .)
+    POWER           shift and go to state 22
+
+  ! POWER           [ reduce using rule 10 (expression -> expression DIVIDE expression .) ]
+  ! PLUS            [ shift and go to state 18 ]
+  ! MINUS           [ shift and go to state 19 ]
+  ! TIMES           [ shift and go to state 20 ]
+  ! DIVIDE          [ shift and go to state 21 ]
+
+
+state 30
+
+    (14) expression -> expression POWER NUMBER .
+
+    PLUS            reduce using rule 14 (expression -> expression POWER NUMBER .)
+    MINUS           reduce using rule 14 (expression -> expression POWER NUMBER .)
+    TIMES           reduce using rule 14 (expression -> expression POWER NUMBER .)
+    DIVIDE          reduce using rule 14 (expression -> expression POWER NUMBER .)
+    POWER           reduce using rule 14 (expression -> expression POWER NUMBER .)
+    $end            reduce using rule 14 (expression -> expression POWER NUMBER .)
+    RPAREN          reduce using rule 14 (expression -> expression POWER NUMBER .)
+
+
+state 31
+
+    (15) expression -> expression POWER NAME .
+
+    PLUS            reduce using rule 15 (expression -> expression POWER NAME .)
+    MINUS           reduce using rule 15 (expression -> expression POWER NAME .)
+    TIMES           reduce using rule 15 (expression -> expression POWER NAME .)
+    DIVIDE          reduce using rule 15 (expression -> expression POWER NAME .)
+    POWER           reduce using rule 15 (expression -> expression POWER NAME .)
+    $end            reduce using rule 15 (expression -> expression POWER NAME .)
+    RPAREN          reduce using rule 15 (expression -> expression POWER NAME .)
+
+
+state 32
+
+    (16) expression -> expression POWER LPAREN . expression RPAREN
+    (7) expression -> . expression PLUS expression
+    (8) expression -> . expression MINUS expression
+    (9) expression -> . expression TIMES expression
+    (10) expression -> . expression DIVIDE expression
+    (11) expression -> . MINUS expression
+    (12) expression -> . LPAREN expression RPAREN
+    (13) expression -> . NUMBER
+    (14) expression -> . expression POWER NUMBER
+    (15) expression -> . expression POWER NAME
+    (16) expression -> . expression POWER LPAREN expression RPAREN
+    (17) expression -> . EXP LPAREN expression RPAREN
+    (18) expression -> . NAME
+
+    MINUS           shift and go to state 13
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 15
+    EXP             shift and go to state 16
+    NAME            shift and go to state 11
+
+    expression                     shift and go to state 35
+
+state 33
+
+    (12) expression -> LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    POWER           reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    $end            reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 12 (expression -> LPAREN expression RPAREN .)
+
+
+state 34
+
+    (17) expression -> EXP LPAREN expression . RPAREN
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    RPAREN          shift and go to state 36
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    POWER           shift and go to state 22
+
+
+state 35
+
+    (16) expression -> expression POWER LPAREN expression . RPAREN
+    (7) expression -> expression . PLUS expression
+    (8) expression -> expression . MINUS expression
+    (9) expression -> expression . TIMES expression
+    (10) expression -> expression . DIVIDE expression
+    (14) expression -> expression . POWER NUMBER
+    (15) expression -> expression . POWER NAME
+    (16) expression -> expression . POWER LPAREN expression RPAREN
+
+    RPAREN          shift and go to state 37
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+    TIMES           shift and go to state 20
+    DIVIDE          shift and go to state 21
+    POWER           shift and go to state 22
+
+
+state 36
+
+    (17) expression -> EXP LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 17 (expression -> EXP LPAREN expression RPAREN .)
+    MINUS           reduce using rule 17 (expression -> EXP LPAREN expression RPAREN .)
+    TIMES           reduce using rule 17 (expression -> EXP LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 17 (expression -> EXP LPAREN expression RPAREN .)
+    POWER           reduce using rule 17 (expression -> EXP LPAREN expression RPAREN .)
+    $end            reduce using rule 17 (expression -> EXP LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 17 (expression -> EXP LPAREN expression RPAREN .)
+
+
+state 37
+
+    (16) expression -> expression POWER LPAREN expression RPAREN .
+
+    PLUS            reduce using rule 16 (expression -> expression POWER LPAREN expression RPAREN .)
+    MINUS           reduce using rule 16 (expression -> expression POWER LPAREN expression RPAREN .)
+    TIMES           reduce using rule 16 (expression -> expression POWER LPAREN expression RPAREN .)
+    DIVIDE          reduce using rule 16 (expression -> expression POWER LPAREN expression RPAREN .)
+    POWER           reduce using rule 16 (expression -> expression POWER LPAREN expression RPAREN .)
+    $end            reduce using rule 16 (expression -> expression POWER LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 16 (expression -> expression POWER LPAREN expression RPAREN .)
+
