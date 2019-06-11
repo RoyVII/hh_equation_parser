@@ -1,0 +1,17 @@
+Komendantov_Kononenko_1996 -65 55
+d/dt V = (-(i_na_ttx + i_k_tea + i_k + i_na + i_na_v + i_b + i_ca + i_ca_ca) + i - syn) / Cm
+i_na_v = g_na_v * (1.0 / (1.0 + exp(-0.2 * (V + 45)))) * (V - V_na)
+i_k = g_k * (V - V_k)
+i_na = g_na * (V - V_na)
+i_b = g_b * m_b * h_b * (V - V_b)
+d/dt m_b = (1.0 / (1.0 + exp(0.4 * (V + 34))) - m_b) / 0.05
+d/dt h_b = (1.0 / (1.0 + exp(-0.55 * (V + 43))) - h_b) / 1.5
+i_na_ttx = g_na_ttx * m^3 * h * (V - V_na)
+i_k_tea = g_k_tea * n^4 * (V - V_k)
+d/dt m = (1.0 / (1.0 + exp(-0.4 * (V + 31))) - m) / 0.0005
+d/dt h = (1.0 / (1.0 + exp(0.25 * (V + 45))) - h) / 0.01
+d/dt n = (1.0 / (1.0 + exp(-0.18 * (V + 25))) - n) / 0.015
+i_ca = g_ca * m_ca^2 * (V - V_ca)
+d/dt m_ca = (1.0 / (1.0 + exp(-0.2 * V)) - m_ca) / 0.01
+i_ca_ca = g_ca_ca * (1.0 / (1.0 + exp(-0.06 * (V + 45)))) * (1.0 / (1.0 + exp(k_beta * (Ca - beta)))) * (V - V_ca)
+d/dt Ca = rho * ((-i_ca / 808.3108458176299) - (k_s * Ca))
